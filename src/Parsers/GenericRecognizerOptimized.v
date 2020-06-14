@@ -98,7 +98,7 @@ Section recursive_descent_parser.
     do 2 edestruct @GenericRecognizerMin.parse_nonterminal; simpl in *;
       intros []; split; intro;
         try solve [ tauto
-                  | exfalso; eauto using @parse_nt_is_correct_disjoint ].
+                  | exfalso; pose proof @parse_nt_is_correct_disjoint; eauto ].
   Qed.
 
   Let Let_In' {A B} (x : A) (f : forall y : A, B y) : B x

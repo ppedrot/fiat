@@ -1845,15 +1845,15 @@ Module FMapExtensions_fun (E: DecidableType) (Import M: WSfun E).
     { simpl; intros; invlist InA. }
     { intros; invlist InA; invlist NoDupA; simpl in *; specialize_by assumption;
         FMap_convert_to_find;
-        edestruct F.eq_dec; setoid_subst_E_eq; simpl in *; intuition (subst; setoid_subst_E_eq; eauto using (@reflexivity _ E.eq)).
-      { exfalso; eauto using (@reflexivity _ E.eq). }
+        edestruct F.eq_dec; setoid_subst_E_eq; simpl in *; intuition (subst; setoid_subst_E_eq; pose (@reflexivity _ E.eq); eauto).
+      { exfalso; pose (@reflexivity _ E.eq); eauto. }
       { exfalso; destruct_head prod; eauto using InA_eqke_eqk. } }
     { simpl; intros; invlist InA.
       FMap_convert_to_find.
       intro; destruct_head ex; congruence. }
     { intros; invlist InA; invlist NoDupA; simpl in *;
       FMap_convert_to_find;
-      edestruct F.eq_dec; setoid_subst_E_eq; simpl in *; intuition (subst; setoid_subst_E_eq; eauto using (@reflexivity _ E.eq));
+      edestruct F.eq_dec; setoid_subst_E_eq; simpl in *; intuition (subst; setoid_subst_E_eq; pose (@reflexivity _ E.eq); eauto);
       destruct_head prod;
       repeat match goal with
              | [ H : (ex _) -> _ |- _ ] => specialize (fun x pf => H (ex_intro _ x pf))
@@ -1861,7 +1861,7 @@ Module FMapExtensions_fun (E: DecidableType) (Import M: WSfun E).
              | [ H : ?A -> ?B -> ?C, H' : ?B |- _ ] => specialize (fun pf => H pf H')
              | _ => progress simpl in *
              end;
-      eauto using (@reflexivity _ (@eq_key_elt T)), InA_cons_hd. }
+      pose (@reflexivity _ (@eq_key_elt T)); eauto using InA_cons_hd. }
   Qed.
 
   Lemma empty_length_elements {A} (ls : t A)

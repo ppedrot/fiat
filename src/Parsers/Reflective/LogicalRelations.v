@@ -282,7 +282,7 @@ Lemma list_rect_nodep_meaning_correct {A : SimpleTypeCode} {P} f f' n n'
             (Operations.List.list_rect_nodep n' (fun x xs => f' x (Syntactify.syntactify_list xs)) ls).
 Proof.
   induction ls; simpl in *; [ assumption | ].
-  apply Hf; eauto using eq_refl, @interp_Term_syntactify_list with nocore.
+  apply Hf; pose proof @interp_Term_syntactify_list; eauto using eq_refl with nocore.
 Qed.
 
 Hint Resolve @list_rect_nodep_meaning_correct : partial_unfold_hints.

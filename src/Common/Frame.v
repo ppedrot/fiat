@@ -367,7 +367,7 @@ Module PO.
                                         -> morph leB eqB leC eqC g -> morph leA eqA leC eqC (fun x => g (f x)).
   Proof.
     intros. destruct H, H0. constructor; intros.
-    - apply (PreO.morph_compose (leB := leB)); eauto using PreO. apply PreO.
+    - apply (PreO.morph_compose (leB := leB)); epose proof PreO; eauto. apply PreO.
     - solve_proper.
   Qed.
 
@@ -451,7 +451,7 @@ Module PO.
     - unfold pointwise_op. split; simpl in *; intros.
       rewrite <- H0. rewrite <- H. apply H1.
       rewrite H0. rewrite H. apply H1.
-    - unfold pointwise_op. eauto using le_antisym.
+    - unfold pointwise_op. intro; epose le_antisym; eauto.
   Qed.
 
   Definition morph_pointwise {A B C} `{tC : t C leC eqC} (f : B -> A)

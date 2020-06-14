@@ -720,7 +720,7 @@ Section cfg.
             | [ H : context[min _ _] |- _ ] => rewrite min_r in H by omega
             | _ => rewrite drop_length
             | _
-              => solve [ eauto using le_S, Le.le_trans, Plus.le_plus_l, Plus.le_plus_r, drop_0, take_long, NPeano.Nat.eq_le_incl, bool_eq_empty, drop_length, (fun x y => proj2 (NPeano.Nat.sub_0_le x y)) with nocore ]
+              => solve [ pose proof (fun x y => proj2 (NPeano.Nat.sub_0_le x y)); eauto using le_S, Le.le_trans, Plus.le_plus_l, Plus.le_plus_r, drop_0, take_long, NPeano.Nat.eq_le_incl, bool_eq_empty, drop_length with nocore ]
           end.
         Local Ltac min_parse_prod_t := repeat min_parse_prod_t'.
 

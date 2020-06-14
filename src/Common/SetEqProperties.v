@@ -33,7 +33,7 @@ Proof.
   specialize (set_eq pred);
   subst;
   intuition;
-  eauto using in_map.
+  eauto using List.in_map.
 Qed.
 
 Lemma map_modulo_SetEq :
